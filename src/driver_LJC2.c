@@ -128,7 +128,7 @@ int main(int argc, char *argv[]) {
 	
 	Inputs In;				/* Structure to hold model inputs named in Config file */
 	Outputs Out;			/* Structure to hold model outputs named in config file */
-	int size;					/* variable used for creating seed phrase */
+	int size = 25;					/* variable used for creating seed phrase */
 	char *phrase;			/* seed phrase for random number generator */
 	int seed1;				/* random seed number */
 	int seed2;				/* random seed number */
@@ -151,12 +151,12 @@ int main(int argc, char *argv[]) {
 	startTime = time(NULL); 
 	srand(time(NULL));
 	
-	phrase = (char *)GC_MALLOC_ATOMIC(25 * sizeof(char));	
+	phrase = (char *)GC_MALLOC_ATOMIC((size_t)size * sizeof(char));	
   if (phrase == NULL) {
     fprintf(stderr, "Cannot malloc memory for seed phrase:[%s]\n", strerror(errno));
     return 1;
   }
-  snprintf(phrase, 25, "%d", (int)startTime);
+  snprintf(phrase, size, "%d", (int)startTime);
   fprintf(stdout, "Seeding random number generator: %s\n", phrase);
   initialize ( );  /* Initialize the rng's */
   phrtsd ( phrase, &seed1, &seed2 ); /* Initialize all generators. */

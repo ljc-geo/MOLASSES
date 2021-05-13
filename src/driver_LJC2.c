@@ -150,14 +150,13 @@ int main(int argc, char *argv[]) {
 	GC_INIT();
 	startTime = time(NULL); 
 	srand(time(NULL));
-	size = (size_t)(int)(startTime + 1);
 	
-	phrase = (char *)GC_MALLOC_ATOMIC(((size_t)size * sizeof(char)));	
+	phrase = (char *)GC_MALLOC_ATOMIC(25 * sizeof(char));	
   if (phrase == NULL) {
     fprintf(stderr, "Cannot malloc memory for seed phrase:[%s]\n", strerror(errno));
     return 1;
   }
-  snprintf(phrase, size, "%d", (int)startTime);
+  snprintf(phrase, 25, "%d", (int)startTime);
   fprintf(stdout, "Seeding random number generator: %s\n", phrase);
   initialize ( );  /* Initialize the rng's */
   phrtsd ( phrase, &seed1, &seed2 ); /* Initialize all generators. */
